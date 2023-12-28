@@ -63,3 +63,45 @@ const images = [
     description: "Lighthouse Coast Sea",
   },
 ];
+
+const container = document.querySelector(".gallery");
+container.innerHTML = createMarkup(images);
+
+container.addEventListener("click", handleContainerClick);
+
+function createMarkup(arr) {
+  return arr
+    .map(
+      ({ preview, original, description }) => `
+      <li class="gallery-item">
+        <a class="gallery-link" href="${original}">
+          <img class="gallery-image" src="${preview}" data-source="${original}" alt="${description}" />
+        </a>
+      </li>`
+    )
+    .join("");
+}
+
+function handleContainerClick(event) {
+  if (event.target === event.currentTarget) {
+    return;
+  }
+
+  event.preventDefault();
+
+  const instance = basicLightbox.create(`
+    <div class="modal">
+      <img src="${event.target.dataset.source}" width="100%" height="100%" ></img>
+    </div>
+  `);
+  instance.show();
+
+  document.addEventListener("keydown", handleEscapeKey);
+
+  function handleEscapeKey(event) {
+    if (event.code === "Escape") {
+      instance.close();
+      document.removeEventListener("keydown", handleEscapeKey);
+    }
+  }
+}

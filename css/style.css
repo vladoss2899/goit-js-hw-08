@@ -1,3 +1,10 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
 .gallery {
   list-style: none;
   display: flex;
@@ -6,16 +13,24 @@
   flex-direction: row;
   align-items: flex-start;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 12px;
+}
+
+.gallery-item {
+  margin: 10px;
+}
+
+.gallery-link {
+  text-decoration: none;
 }
 
 .gallery-image {
   width: 360px;
   height: 200px;
+  transition: transform 0.3s ease-in-out;
+  cursor: zoom-in;
 }
 
 .gallery-image:hover {
-  width: 376px;
-  height: 208px;
-  transition: 0.3s ease;
+  transform: scale(1.1);
 }
